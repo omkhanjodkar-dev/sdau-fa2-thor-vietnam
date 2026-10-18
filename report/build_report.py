@@ -341,25 +341,25 @@ P("Describe how the weapon-delivery activity recorded in the data is distributed
   "descriptive statistics and graphs.", after=6)
 
 SH("Introduction (purpose and approach)")
-P("The purpose is to build the first overall picture of the air campaign as recorded in "
-  "the data: when it happened, where it happened, who flew it and what was delivered. "
-  "The approach is classical descriptive statistics: frequency tables for the "
-  "categorical variables, summary statistics (mean, median, quartiles, standard "
-  "deviation, skewness, kurtosis) for the numerical variables and one graph per "
-  "question, all produced with R and ggplot2.", after=6)
+P("The first job is simple: see what the recorded air campaign actually looks like - "
+  "when the deliveries happened, where they went, which aircraft flew them and what "
+  "was dropped. Standard descriptive statistics are enough for this: frequency tables "
+  "for the categorical variables, and mean, median, quartiles and skewness for the "
+  "numbers, with one clear graph per question. Everything is produced in R with "
+  "ggplot2.", after=6)
 
 SH("Approach / algorithm with explanation")
 step(1, "Load clean_data.csv (source scripts/common_setup.R).")
-step(2, "Frequency tables of records by year, month, target country, aircraft group, "
-        "period of day, source database and weapon class.")
+step(2, "Frequency tables for year, month, target country, aircraft group, period of "
+        "day, source database and weapon class.")
 step(3, "Summary statistics of WEAPONS_DELIVERED, AIRCRAFT_NO, LOAD_LB, TGT_HOUR, LAT "
-        "and LON, including the median, quartiles, interquartile range, skewness and "
-        "kurtosis, because the distributions are strongly skewed.")
-step(4, "Graphs: bar chart of records per year; monthly time series by target country; "
-        "histogram of weapons delivered; boxplots of weapons delivered by country; map "
-        "of the target coordinates.")
-step(5, "Read each number with attention to the heavy skew (comparison of mean and "
-        "median).")
+        "and LON - median and quartiles next to the mean, plus skewness and kurtosis, "
+        "because every one of these variables is strongly skewed.")
+step(4, "Five graphs: records per year, the monthly series by country, the histogram "
+        "of weapons delivered, boxplots of weapons by country, and a map of the target "
+        "coordinates.")
+step(5, "Read every number with the skew in mind and trust the median more than the "
+        "mean when describing the typical record.")
 
 SH("Output with description")
 P("Frequency tables (from outputs/problem1.txt):", after=2)
@@ -398,50 +398,52 @@ P("Table 6: Summary statistics of the main numerical variables.",
 fig("fig1_1_records_by_year.png",
     "Figure 1.1: Weapon-delivery records per year. Activity builds up 1966-68, peaks in "
     "1970 (3,532 records) and nearly stops after 1972 (86 records in 1975).")
-P("Inference: the war effort recorded in the data is concentrated in 1968-1971 "
-  "(57.6% of all sample records); the sharp fall after 1972 matches the withdrawal of "
-  "US forces and the end of large-scale bombing.", after=8)
+P("The recorded effort builds up from 1966, peaks in 1970 with 3,532 records, and "
+  "falls away after 1972 (only 86 records in 1975). In total 57.6% of all records fall "
+  "in 1968-71, the years of the heaviest fighting; the fall after 1972 matches the "
+  "withdrawal of US forces.", after=8)
 
 fig("fig1_2_monthly_by_country.png",
     "Figure 1.2: Monthly number of records by target country. South Vietnam dominates "
     "throughout; Laos is present steadily; the North Vietnam series appears mainly in "
     "1972.", width=14.5)
-P("Inference: the monthly profile differs by country - South Vietnam is a continuous "
-  "high-volume theatre, while North Vietnam shows concentrated campaigns (1967-68 and "
-  "1972), which is consistent with the historical record of the two bombing campaigns "
-  "against the North.", after=8)
+P("The countries behave differently. South Vietnam is a steady, high-volume theatre "
+  "almost every month, while North Vietnam appears in concentrated bursts (1967-68 and "
+  "again in 1972) - the two bombing campaigns against the North.", after=8)
 
 fig("fig1_3_weapons_hist.png",
     "Figure 1.3: Number of weapons delivered per record (records above 100 weapons are "
     "shown at the right edge).")
-P("Inference: the distribution is extremely skewed: half of the records deliver 8 or "
-  "fewer weapons, but 5.74% of the records deliver more than 100 (maximum 9,040). "
-  "For this reason the median and the quartiles are reported next to the mean "
-  "everywhere in this report.", after=8)
+P("Half of all records deliver 8 weapons or fewer, yet 5.74% deliver more than 100 "
+  "(the largest single record is 9,040 weapons). A tail this heavy is exactly why the "
+  "median is reported next to the mean everywhere in this report.", after=8)
 
 fig("fig1_4_weapons_by_country.png",
     "Figure 1.4: Weapons delivered per record by target country (boxplots).")
-P("Inference: the typical (median) record is small in every country (8 weapons in "
-  "South Vietnam, North Vietnam and Laos, 12 in Cambodia); the means are much larger "
-  "than the medians in every country because of the long right tail. Comparing "
-  "countries by mean would be misleading, by median they are similar.", after=8)
+P("The typical record looks similar everywhere: a median of 8 weapons in South "
+  "Vietnam, North Vietnam and Laos, and 12 in Cambodia. The means differ much more - "
+  "they are all inflated by the long right tail, and by different amounts - so the "
+  "median is the fair basis for comparing countries.", after=8)
 
 fig("fig1_5_target_map.png",
     "Figure 1.5: Target locations of the sampled records (longitude against latitude).",
     width=12.5)
-P("Inference: the target coordinates form the expected map of the theatre: a dense "
-  "band along the South Vietnamese coast and the Mekong delta, the Laos panhandle, and "
-  "clusters in the North. The coordinates agree with the recorded target country, so "
-  "the geographic information is internally consistent.", after=8)
+P("The plotted targets form the expected map of the war: a dense band along the South "
+  "Vietnamese coast and the Mekong delta, the Laos panhandle, and clusters in the "
+  "north. The coordinates agree with the recorded target countries, so the geography "
+  "in the file is consistent.", after=8)
 
 SH("Conclusion")
-P("The descriptive analysis shows a campaign concentrated in 1966-1972 with a clear "
-  "peak in 1970; the main theatre is South Vietnam (53.5% of targets) followed by Laos "
-  "(29.2%); the workhorse aircraft are the F-4 (24.1%), F-100 (14.4%) and A-1/A-4/A-37 "
-  "families; bombing (BOMB class, 61.8% of records with a known class) is the dominant "
-  "weapon; day records outnumber night records 13,786 to 5,380. Every numerical "
-  "variable is strongly right-skewed, so medians and quartiles describe the typical "
-  "record better than means.", after=10)
+bullet("The recorded campaign builds up in 1966-68, peaks in 1970 (3,532 records) and "
+       "falls away after 1972; 57.6% of all records belong to 1968-71.")
+bullet("Most deliveries go to South Vietnam (53.5% of records), then Laos (29.2%), "
+       "North Vietnam (12.0%) and Cambodia (4.9%).")
+bullet("The F-4 is the most used aircraft (24.1%), followed by the F-100 (14.4%) and "
+       "the A-1 (10.3%); bombs dominate what is delivered (61.8% of records with a "
+       "known weapon class).")
+bullet("Day records outnumber night records roughly 2.5 to 1 (13,786 against 5,380).")
+bullet("Every numerical variable is heavily right-skewed (weapons: mean 38.1 against "
+       "median 8), so medians and quartiles describe the typical record, not means.")
 
 doc.add_page_break()
 
@@ -456,30 +458,28 @@ P("Find a probability distribution that describes the recorded weapon load of a 
   "theorem for the mean load of 30 records.", after=6)
 
 SH("Introduction (purpose and approach)")
-P("The weapon load (LOAD_LB) is recorded for the 5,894 sampled records of the SEADAB "
-  "source (29.5% of the sample) and is the best continuous measure of the size of a "
-  "delivery in the data. A probability model for it allows statements such as 'the "
-  "chance that a record delivers more than 50,000 lb' to be computed. The approach is: "
-  "estimate the parameters of the candidate models by maximum likelihood, test the "
-  "goodness of fit with the chi-square test on equal-probability bins, and verify the "
-  "central limit theorem by simulation.", after=6)
+P("The weapon load (LOAD_LB) is the best continuous measure of how big a single "
+  "delivery was. It is available for the 5,894 sampled records that come from the "
+  "SEADAB source (29.5% of the sample). A probability model for this variable lets us "
+  "answer questions like 'how likely is a delivery above 50,000 lb?'. The plan: "
+  "estimate the parameters of two candidate models (normal and lognormal) by maximum "
+  "likelihood, test each fit with a chi-square goodness-of-fit test, and then verify "
+  "the central limit theorem with a simulation.", after=6)
 
 SH("Approach / algorithm with explanation")
-step(1, "Take the 5,894 records with a recorded load; summarise them (mean, median, "
-        "standard deviation, skewness, kurtosis, quartiles).")
-step(2, "Fit the normal model: parameters equal to the sample mean and standard "
-        "deviation (maximum likelihood for the normal).")
-step(3, "Fit the lognormal model: take log10(load), fit a normal distribution to the "
-        "logs, report the parameters in natural log units.")
-step(4, "Chi-square goodness of fit for both models: split the fitted distribution "
-        "into 8 equally likely bins, count the observed records in the same bins, "
-        "compute the chi-square statistic with df = 7 - 2 estimated parameters = 5.")
-step(5, "Compare observed and fitted quartiles and compute model probabilities; use "
-        "boxplots of the load by aircraft group to investigate the misfit.")
-step(6, "Central limit theorem: draw 20,000 samples of n = 30 records, form the sample "
-        "means, compare their mean, standard deviation and shape with the theoretical "
-        "values, and compute the probability that the sample mean exceeds 70,000 lb "
-        "by theory and by simulation.")
+step(1, "Take the 5,894 records that have a load and summarise the variable (mean, "
+        "median, sd, skewness, kurtosis, quartiles).")
+step(2, "Fit a normal model, using the sample mean and sd as the maximum-likelihood "
+        "estimates.")
+step(3, "Fit a lognormal model: take log10(load), fit a normal distribution to the "
+        "logs, and report the parameters in natural log units.")
+step(4, "Test both fits with the chi-square goodness-of-fit test on 8 equally likely "
+        "bins (df = 7 - 2 estimated parameters = 5).")
+step(5, "Compare observed and fitted quartiles and probabilities, and use boxplots by "
+        "aircraft group to see why any misfit happens.")
+step(6, "Central limit theorem: 20,000 simulated samples of 30 records; compare the "
+        "mean, sd and skewness of the sample means with theory, and compute the "
+        "probability that the sample mean exceeds 70,000 lb both ways.")
 
 SH("Output with description")
 table(["Quantity", "Value", "Quantity", "Value"],
@@ -495,10 +495,11 @@ fig("fig2_1_load_hist.png",
     "Figure 2.1: Histogram of the recorded weapon load; the strong right skew "
     "(skewness 4.55) makes a normal model implausible for the load itself.")
 
-P("Normal model: mean 59,795.3 lb, sd 94,703.2 lb. The chi-square statistic is 7,337.8 "
-  "on 5 degrees of freedom (p < 2.2e-16), i.e. the model is rejected. The fitted normal "
-  "puts 12.5% of the records in the lowest bin, but not a single record can be below "
-  "the physical minimum of zero, so the lower tail is impossible.", after=8)
+P("Normal model: the fitted parameters are mean 59,795.3 lb and sd 94,703.2 lb, and "
+  "the chi-square statistic is 7,337.8 on 5 degrees of freedom (p < 2.2e-16) - a clear "
+  "rejection. One number shows why: the normal model wants 12.5% of the records in "
+  "the lowest bin, but no delivery load can be negative, so the model's lower tail is "
+  "impossible.", after=8)
 
 fig("fig2_2_log_hist.png",
     "Figure 2.2: log10 of the weapon load with the fitted normal density; on the log "
@@ -508,15 +509,14 @@ fig("fig2_3_log_qq.png",
     "Figure 2.3: Normal Q-Q plot of log10(load): the middle follows the line, but both "
     "tails bend away.")
 
-P("Lognormal model: log10(load) has mean 4.4669 and sd 0.5616, i.e. meanlog = 10.2854 "
-  "and sdlog = 1.2931 in natural logs. The goodness-of-fit chi-square statistic is "
-  "610.2 on 5 degrees of freedom (p < 2.2e-16): the lognormal model is far better than "
-  "the normal (statistic 610 vs 7,338) but is still formally rejected, because the "
-  "sample is large and the observed bin counts are not smooth (727, 582, 550, 653, "
-  "1,163, 1,006, 825, 388 against 736.8 expected in each bin). The middle bins contain "
-  "more records and the tails fewer than the model predicts; the fitted quartiles "
-  "(12,249 / 29,302 / 70,097) differ from the observed ones (15,930 / 34,260 / 63,720) "
-  "in both tails.", after=6)
+P("The lognormal model does much better. On the log scale the sample has mean 4.4669 "
+  "and sd 0.5616 (meanlog 10.2854 and sdlog 1.2931 in natural logs). The chi-square "
+  "statistic drops from 7,338 to 610.2 - still df = 5, and still a formal rejection "
+  "(p < 2.2e-16), because with n = 5,894 even small imperfections are detectable. The "
+  "bin counts show the pattern: the middle bins hold more records than expected "
+  "(1,163 and 1,006 against 736.8 each) and the tails fewer. The quartiles tell the "
+  "same story: fitted 12,249 / 29,302 / 70,097 against observed 15,930 / 34,260 / "
+  "63,720.", after=6)
 
 table(["Threshold load", "Model probability P(load > threshold)", "Observed share"],
       [["25,000 lb", "0.5489", "0.5976"],
@@ -532,31 +532,34 @@ fig("fig2_4_load_by_aircraft.png",
     "Figure 2.4: Weapon load by aircraft group on the log scale. The B-52 group "
     "(median 3,82,320 lb) is an extreme group, more than ten times the median load of "
     "the F-4 (47,790 lb) or the A-37 (21,240 lb).", width=14)
-P("Inference: the load distribution is a mixture of very different aircraft groups, "
-  "not one single population. A single lognormal cannot fit a mixture, which explains "
-  "the formal rejection even though the lognormal is qualitatively the right family. "
-  "This is a limitation of the source data (the load is only recorded for one source "
-  "database) rather than a failure of the method.", after=8)
+P("Figure 2.4 explains the rejection: the load is not one population but a mixture of "
+  "aircraft groups. A B-52 record carries a median of 3,82,320 lb - more than ten "
+  "times the A-37 median (21,240 lb) and eight times the F-4 median (47,790 lb). No "
+  "single distribution can fit a mixture this wide. This is a property of the data "
+  "(very different aircraft pooled together, load recorded in one source only), not a "
+  "failure of the method.", after=8)
 
 fig("fig2_5_clt_sim.png",
     "Figure 2.5: Simulated sampling distribution of the mean load of 30 records "
     "(20,000 repetitions) against the normal approximation.", width=14)
-P("Central limit theorem: for n = 30 the standard error of the mean is 94,711.3 / "
-  "sqrt(30) = 17,291.8 lb. The simulation gives mean 59,736.9 lb (theory 59,795.3) and "
-  "standard deviation 17,169.1 lb (theory 17,291.8) - both match well. The theoretical "
-  "normal probability P(sample mean > 70,000) is 0.2775 while the simulation gives "
-  "0.2494; the distribution of the means is still slightly right-skewed (skewness "
-  "0.822), so n = 30 is not yet large for this very heavy-tailed variable.", after=8)
+P("For n = 30 the standard error of the mean is 94,711.3 / sqrt(30) = 17,291.8 lb. "
+  "The simulation matches theory closely: the mean of the sample means is 59,736.9 lb "
+  "(theory 59,795.3) and their sd is 17,169.1 lb (theory 17,291.8). The one visible "
+  "imperfection is shape: the normal approximation gives P(sample mean > 70,000) = "
+  "0.2775 while the simulation gives 0.2494, because with skewness 0.822 the "
+  "distribution of the means is still slightly right-skewed at n = 30.", after=8)
 
 SH("Conclusion")
-P("The normal model is clearly wrong for the weapon load (impossible negative region, "
-  "statistic 7,338). The lognormal model captures the shape well on the log scale and "
-  "gives useful probabilities (for example about 34% of the records exceed 50,000 lb "
-  "against 35% observed), but it is formally rejected by the chi-square test (610.2, "
-  "p < 2.2e-16) because the data are a mixture of aircraft groups with very different "
-  "loads. The central limit theorem was verified by simulation: the mean of 30 records "
-  "has the theoretical mean and standard error, and the normal approximation for such "
-  "means is adequate but not exact for this heavy-tailed variable.", after=10)
+bullet("The normal model is plainly wrong for the load - it needs negative loads and "
+       "fits twelve times worse than the lognormal (chi-square 7,337.8 against 610.2).")
+bullet("The lognormal captures the shape well and gives usable probabilities: about "
+       "34% of records above 50,000 lb against 35% observed, and all four thresholds "
+       "in Table 8 within roughly 5 percentage points.")
+bullet("It is still formally rejected (p < 2.2e-16) because the data are a mixture of "
+       "very different aircraft groups - a single distribution cannot fit all of them.")
+bullet("The CLT check succeeded: the mean of 30 records matches theory in both mean "
+       "and standard error (within about 1%), although the normal approximation is "
+       "only approximate at n = 30 for such a heavy-tailed variable.")
 
 doc.add_page_break()
 
@@ -572,13 +575,11 @@ P("Test, at the 5% level, whether the mean weapon load of a delivery record diff
 
 SH("Introduction (purpose and approach)")
 P("Period of day is one of the few operational factors that is recorded for almost "
-  "every record (PERIOD missing for only 4.2%). If night deliveries carry "
-  "systematically different loads, mission planning and the interpretation of the "
-  "earlier descriptive graphs must take that into account. The two-sample t-test "
-  "compares the mean load between the day and night groups; because the load is "
-  "extremely skewed, the test is applied to log10(load), which turns the comparison "
-  "into a comparison of geometric means. Welch's version of the test is used because "
-  "it does not assume equal variances.", after=6)
+  "every record (missing for just 4.2%). If day and night deliveries differ in size, "
+  "that changes how the totals and graphs in this report should be read. Because the "
+  "load is extremely skewed, the comparison is made on log10(load), which turns the "
+  "t-test into a test of geometric means, and Welch's version is used so that unequal "
+  "variances are handled properly.", after=6)
 
 SH("Approach / algorithm with explanation")
 bullet("H0: the mean log10(load) is the same for day and night records; H1: the means "
@@ -614,44 +615,46 @@ fig("fig3_3_ecdf_period.png",
     "axis) by period; the day curve lies to the right for most of the range.",
     width=12)
 
-P("Assumption checks: on the log scale the day group has skewness -0.79 and the night "
-  "group -0.28 (against +4.55 for the raw load), so the log transformation makes the "
-  "groups nearly symmetric; the Shapiro-Wilk test still rejects strict normality "
-  "(day W = 0.9583, night W = 0.9876, both p < 1e-10) as it does for almost any large "
-  "sample. The variance ratio test (F = 0.605) and Levene's test (F = 143.1, p < "
-  "2.2e-16) both indicate unequal variances, so Welch's version of the t-test is the "
-  "correct one.", after=6)
+P("The checks before the test:", after=2)
+bullet("Shape: on the log scale the groups are far better behaved (skewness -0.79 for "
+       "day and -0.28 for night, against +4.55 for the raw load). Shapiro-Wilk still "
+       "rejects strict normality (W = 0.9583 and 0.9876, both p < 1e-10), as it does "
+       "for almost any large sample, so the Mann-Whitney test is added as a safety "
+       "net.")
+bullet("Variances: both the F test (0.605) and Levene's test (F = 143.1, p < 2.2e-16) "
+       "say the variances differ, so Welch's t-test - which does not need equal "
+       "variances - is the right choice.")
 
-P("Welch two-sample t-test result (on log10(load)): t = 8.069 on 2,561.6 degrees of "
-  "freedom, p-value = 1.079e-15, so H0 is rejected. The mean log10(load) is 4.5086 for "
-  "day and 4.3648 for night; the difference (day - night) is 0.1438 with 95% confidence "
-  "interval [0.1088, 0.1787]. On the original scale this means the day geometric mean "
-  "is 1.392 times the night geometric mean (39.2% higher), with interval [1.285, 1.509], "
-  "i.e. between 28.5% and 50.9% higher. Cohen's d on the log scale is 0.258, a small "
-  "to moderate effect.", after=6)
+P("Test result: t = 8.069 on 2,561.6 degrees of freedom, p = 1.079e-15, so the null "
+  "hypothesis is rejected. The mean log10(load) is 4.5086 by day against 4.3648 at "
+  "night; the difference (day - night) is 0.1438 with 95% confidence interval "
+  "[0.1088, 0.1787]. Back on the original scale, the day geometric mean is 1.392 times "
+  "the night value, about 39% higher, and the interval runs from 28.5% to 50.9%. "
+  "Cohen's d is 0.258 - a small-to-moderate effect.", after=6)
 
-P("The raw group means tell the opposite story (night 65,258.9 lb against day "
-  "57,614.7 lb). The reason is visible in the data: night deliveries are polarised. "
-  "27.9% of night records deliver less than 10,000 lb (day: 13.8%) but 6.8% deliver "
-  "more than 2,00,000 lb (day: 3.2%), so the night mean is pulled up by a small number "
-  "of very heavy deliveries while the typical (median, geometric mean) night record is "
-  "lighter. The median day load is 42,240 lb against 24,900 lb at night, a difference "
-  "of 17,340 lb in the same direction as the t-test.", after=6)
+P("So why do the raw means say the opposite (night 65,258.9 lb against day 57,614.7 "
+  "lb)? Because night deliveries are polarised: 27.9% of them are below 10,000 lb "
+  "(day: 13.8%), but 6.8% are above 2,00,000 lb (day: 3.2%). A handful of very heavy "
+  "night deliveries drags the mean up, while the median tells the honest story - "
+  "42,240 lb by day against 24,900 lb at night, a difference of 17,340 lb in the same "
+  "direction as the t-test.", after=6)
 
-P("Mann-Whitney cross-check: U = 4,112,513, p < 2.2e-16; the raw-load medians differ "
-  "significantly in the same direction. The conclusion does not depend on the "
-  "normality assumption.", after=8)
+P("The Mann-Whitney test agrees (U = 4,112,513, p < 2.2e-16) on the raw loads, and it "
+  "assumes neither normality nor equal variances - so the conclusion is not an "
+  "artefact of the model assumptions.", after=8)
 
 SH("Conclusion")
-P("There is strong evidence (p = 1.08e-15) that day and night deliveries differ: the "
-  "typical day load is about 39% heavier than the typical night load (geometric means "
-  "32,254 lb against 23,165 lb; medians 42,240 lb against 24,900 lb). The effect is "
-  "small to moderate (d = 0.26). The raw means disagree only because a few very heavy "
-  "night deliveries (large formations) pull the night mean up - a textbook example of "
-  "why skewed data should be compared on the log scale or with medians. Limitation: "
-  "records of the same mission are not strictly independent, so the p-value is "
-  "slightly optimistic; the effect size and the confidence interval remain the "
-  "reliable quantities.", after=10)
+bullet("Day and night deliveries genuinely differ (Welch p = 1.08e-15): the typical "
+       "day load is about 39% heavier (geometric means 32,254 against 23,165 lb; "
+       "medians 42,240 against 24,900 lb).")
+bullet("The effect is small to moderate (d = 0.26), and the non-parametric "
+       "Mann-Whitney test agrees with the t-test.")
+bullet("The raw means disagree only because a few very heavy night deliveries pull "
+       "the night mean up - a textbook reminder to compare skewed data on the log "
+       "scale or by medians.")
+bullet("Limitation: one mission can produce several records, so the p-value is "
+       "slightly optimistic; the effect size and the confidence interval are the "
+       "quantities to trust.")
 
 doc.add_page_break()
 
@@ -710,31 +713,31 @@ fig("fig4_2_residual_heatmap.png",
     "Figure 4.2: Standardised residuals of the test; darker cells deviate more from "
     "independence (positive = more records than expected).", width=14)
 
-P("Test result: chi-square = 4,538.3 on (7-1)(4-1) = 18 degrees of freedom, p < "
-  "2.2e-16, so H0 is rejected: the aircraft mix depends on the target country. "
-  "Cramer's V = 0.278, a moderate association.", after=6)
+P("Result: chi-square = 4,538.3 on (7-1)(4-1) = 18 degrees of freedom, p < 2.2e-16 - "
+  "independence is rejected. The aircraft mix clearly depends on where the mission "
+  "went. Cramer's V = 0.278 says the link is moderate in strength.", after=6)
 
-P("The largest standardised residuals identify how the association works: the F-100 "
-  "and the A-37 operate almost only over South Vietnam (residuals +42.2 and +25.0; "
-  "90.8% and 85.4% of their records). The A-4 Skyhawk (a US Navy aircraft) is over "
-  "represented over North Vietnam (+24.0; 29.4% of its records against 12.1% of the "
-  "sample) and the F-4 Phantom is over represented over Laos (+25.4; 43.9%). The B-52 "
-  "is over represented over Cambodia (+14.3; 15.3% of its records against 4.9%) - the "
-  "well-known pattern of the secret Cambodian bombing. The F-4 is less used over South "
-  "Vietnam than expected (-27.3) and the F-100 almost never over North Vietnam (-20.5). "
-  "The overall conclusion is that the aircraft-country combination is a fairly strong "
-  "role effect: each aircraft family has a characteristic theatre.", after=8)
+P("The residuals show exactly how the association works:", after=2)
+bullet("F-100 and A-37: almost only South Vietnam (residuals +42.2 and +25.0; 90.8% "
+       "and 85.4% of their records) - classic close air support.")
+bullet("A-4 Skyhawk (US Navy): over-represented over North Vietnam (+24.0; 29.4% of "
+       "its records against 12.1% of the sample).")
+bullet("F-4 Phantom: over Laos (+25.4; 43.9% of its records) and under over South "
+       "Vietnam (-27.3).")
+bullet("B-52: over Cambodia (+14.3; 15.3% of its records against 4.9%) - the "
+       "well-known pattern of the Cambodian bombing.")
+bullet("F-100: almost never over North Vietnam (-20.5).")
+P("In short, each aircraft family has its own operational home.", after=8)
 
 SH("Conclusion")
-P("Aircraft type and target country are not independent (chi-square = 4,538.3, df = "
-  "18, p < 2.2e-16, Cramer's V = 0.278). Interpreting the residuals: fighter-bombers "
-  "like the F-100 and A-37 fly close air support over South Vietnam, the F-4 covers "
-  "Laos and the North, the carrier-based A-4 concentrates on North Vietnam, and the "
-  "B-52 is heavily over represented over Cambodia. Note the limitation: records are "
-  "not strictly independent (several per mission) and the Thailand cells had to be "
-  "excluded to keep the chi-square approximation valid, so the p-value is optimistic; "
-  "the effect size (moderate) and the residual pattern are the robust results.",
-  after=10)
+bullet("Aircraft type and target country are not independent (chi-square = 4,538.3, "
+       "df = 18, p < 2.2e-16); the association is moderate (Cramer's V = 0.278).")
+bullet("The residuals read like the history of the air war: the F-100 and A-37 cover "
+       "the South, the Navy's A-4 concentrates on the North, the F-4 works over Laos, "
+       "and the B-52 concentrates on Cambodia.")
+bullet("Caveats: the 82 Thailand records were excluded (two expected counts below 5), "
+       "and mission-level dependence makes the p-value optimistic - the residual "
+       "pattern and Cramer's V are the robust results.")
 
 doc.add_page_break()
 
@@ -750,14 +753,13 @@ P("Study the association between the numerical variables of the data and build a
   "it to predict the number of aircraft for a given mission profile.", after=6)
 
 SH("Introduction (purpose and approach)")
-P("The number of aircraft in a record measures the size of the formation that flew the "
-  "delivery. The purpose is to quantify how much of the size of a formation is "
-  "explained by the factors recorded in the data, which combination of factors "
-  "produces the largest formations, and whether the model can be used for prediction. "
-  "The analysis has two stages: correlation analysis of the numerical variables "
-  "(Spearman coefficients are the reliable ones because of the skew), and a multiple "
-  "linear regression of log10(AIRCRAFT_NO) on the five categorical/numerical factors, "
-  "with full diagnostics.", after=6)
+P("The number of aircraft in a record is a direct measure of how big the formation "
+  "was. This analysis asks three questions: which variables move together "
+  "(correlation analysis), how much of the formation size the recorded factors "
+  "explain (multiple regression), and whether the model predicts sensibly for a given "
+  "mission profile. Because the count is heavily skewed, the regression works on "
+  "log10(aircraft) and the correlations are read mainly from the Spearman "
+  "coefficients.", after=6)
 
 SH("Approach / algorithm with explanation")
 step(1, "Pearson and Spearman correlations between AIRCRAFT_NO, WEAPONS_DELIVERED, "
@@ -777,14 +779,14 @@ step(6, "Prediction example with a 95% prediction interval and comparison with t
         "observed records of the same profile.")
 
 SH("Output with description")
-P("Correlation analysis (Spearman coefficients, all p < 2.2e-16 unless stated): the "
-  "strongest association is between weapons delivered and weapon load (rho = 0.648); "
-  "aircraft per record correlate with the load (0.288) and with weapons delivered "
-  "(0.173); the hour at target has a weak negative association with aircraft "
-  "(-0.217); latitude and longitude are negatively correlated (-0.280) simply because "
-  "the theatre runs from north-west to south-east. The Pearson coefficients are much "
-  "smaller for the heavy-tailed pairs (for example 0.247 against 0.173 for aircraft "
-  "and weapons), confirming that the skew distorts the linear correlation.", after=6)
+P("Correlations first (Spearman values; all p < 2.2e-16 unless stated). The strongest "
+  "pair is weapons delivered and load (rho = 0.648) - heavier loads mean more bombs. "
+  "Aircraft per record moves with the load (0.288) and with weapons delivered (0.173), "
+  "and slightly against the hour at target (-0.217). Latitude and longitude correlate "
+  "negatively (-0.280) simply because the theatre runs from north-west to south-east. "
+  "Notice how much smaller the Pearson values are for the skewed pairs (0.247 against "
+  "0.173 for aircraft and weapons): linear correlation on skewed data understates the "
+  "relationship.", after=6)
 
 fig("fig5_1_scatter_weapons_aircraft.png",
     "Figure 5.1: log10(weapons delivered) against log10(aircraft per record); the "
@@ -799,11 +801,10 @@ table(["Model", "R squared", "Adjusted R sq.", "F / p", "Residual std. error", "
 P("Table 11: Comparison of the simple and the multiple regression (n = 18,811).",
   size=10.5, italic=True, align="center", after=6)
 
-P("Multiple regression result: R squared = 0.166 (adjusted 0.1654), so the five "
-  "factors together explain about 17% of the variation of log10(aircraft) between "
-  "records; the overall F test is 267.2 on (14, 18,796) degrees of freedom, p < "
-  "2.2e-16. The largest effects on the size of a formation, holding the other factors "
-  "constant:", after=4)
+P("Multiple regression: R squared = 0.166 (adjusted 0.1654), with F = 267.2 on (14, "
+  "18,796) degrees of freedom, p < 2.2e-16. In words: type, country, period, year and "
+  "source together explain about 17% of why one record has more aircraft than another. "
+  "The biggest effects, holding the other factors fixed:", after=4)
 
 table(["Predictor (against reference)", "Estimate (log10)", "Effect on aircraft", "95% CI (log10)"],
       [["B-52 Stratofortress (vs F-4)", "+0.193", "+55.9% (x1.56)", "[0.164, 0.221]"],
@@ -821,12 +822,11 @@ P("Table 12: Largest coefficients of the multiple regression (all p < 0.001). Th
   "coefficients are small but significant (-6.1% and -5.2%).",
   size=10.5, italic=True, align="center", after=6)
 
-P("Interpretation: B-52 records involve about 1.56 times as many aircraft as the "
-  "equivalent F-4 records - the classic multi-aircraft cell formations. Night records "
-  "are about 37% smaller than day records of the same type and country, and the two "
-  "smaller source databases (CACTA) record formations about 35% and 21% smaller than "
-  "SEADAB, which is consistent with them recording different kinds of missions. "
-  "Formations shrink by about 7% per war year, and attacks recorded over Cambodia are "
+P("In plain language: a B-52 record carries about 1.56 times the aircraft of an "
+  "equivalent F-4 record (the big multi-aircraft cells); night operations are about "
+  "37% smaller; the two smaller CACTA sources record formations 35% and 21% smaller "
+  "than SEADAB, which fits with them capturing different kinds of missions; formation "
+  "sizes shrink by about 7% for each year of the war; and records over Cambodia are "
   "about 18% smaller than over South Vietnam.", after=6)
 
 fig("fig5_3_residuals_fitted.png",
@@ -838,78 +838,68 @@ fig("fig5_4_residual_qq.png",
     "middle, the right tail corresponds to a few very large formations (up to 99 "
     "aircraft) that the model under predicts.", width=12)
 
-P("Model checks: the residuals have mean zero by construction; skewness 2.45 and "
-  "kurtosis 11.4 (Shapiro-Wilk W = 0.822 on a subsample of 2,000, p < 2.2e-16), driven "
-  "by the right tail of very large formations, not by an error of specification. No "
-  "observation is influential: the largest Cook's distance is 0.0089, far below 1, and "
-  "only 2.81% of the records exceed the 4/n guideline. Collinearity is moderate: the "
-  "variance inflation of YEAR against all other predictors is 3.76, below the usual "
-  "threshold of 5, but part of the year trend overlaps with the country mix (for "
-  "example Thailand targets appear only late in the war), so the year coefficient "
-  "should be read as an average trend, not as a causal effect.", after=6)
+P("The diagnostic checks hold up:", after=2)
+bullet("Residuals: mean zero by construction, but skewness 2.45 and kurtosis 11.4 "
+       "(Shapiro-Wilk W = 0.822 on a subsample of 2,000, p < 2.2e-16). The cause is "
+       "the right tail - a few giant formations (up to 99 aircraft) that any "
+       "multiplicative model under-predicts; the middle of the distribution is well "
+       "behaved.")
+bullet("Influence: the largest Cook's distance is 0.0089, far below 1, and only "
+       "2.81% of records pass the 4/n guideline - no single record is driving the "
+       "fit.")
+bullet("Collinearity: the VIF of YEAR is 3.76 - below the usual threshold of 5, but "
+       "not 1, because the country mix drifts over the war (Thailand appears only "
+       "late). Read the year effect as an average trend, not a causal effect.")
 
-P("Prediction example: for the profile 'F-4 Phantom, target North Vietnam, night, "
-  "1972, SEADAB' the model predicts 1.55 aircraft with a 95% prediction interval of "
-  "[0.51, 4.69]. The 32 observed records with exactly this profile have a mean of "
-  "1.75 aircraft, comfortably inside the interval. The interval is wide on the "
-  "original scale (a factor of nine) - honest evidence that the model predicts the "
-  "average behaviour of a group of records well, but a single record only roughly.",
-  after=8)
+P("Prediction test: for the profile 'F-4 Phantom, target North Vietnam, night, 1972, "
+  "SEADAB' the model predicts 1.55 aircraft with a 95% prediction interval of [0.51, "
+  "4.69]. The 32 real records matching this profile average 1.75 aircraft - right "
+  "inside the interval. The interval is wide on the original scale (a factor of about "
+  "nine), which is honest: the model describes group averages well, a single record "
+  "only roughly.", after=8)
 
 SH("Conclusion")
-P("The size of a formation is dominated by the aircraft type (B-52 cells carry about "
-  "56% more aircraft than the F-4 reference) and by the period of day (night records "
-  "are about 37% smaller). The five factors together explain about 17% of the "
-  "record-to-record variation, which is realistic: many determinants of a formation "
-  "(target importance, availability, weather, operation) are not in the data. The "
-  "model passes the practical checks (no influential observations, moderate "
-  "collinearity, sensible residuals) and its prediction interval covers the observed "
-  "mean of a specific mission profile. Correlation results confirm the relationships "
-  "and warn that Pearson coefficients on skewed variables understate the association "
-  "(weapons-load: Pearson 0.31 against Spearman 0.65).", after=10)
+bullet("Formation size is dominated by aircraft type and period of day: B-52 records "
+       "carry about 56% more aircraft than equivalent F-4 records, and night records "
+       "about 37% fewer.")
+bullet("The five recorded factors explain about 17% of the record-to-record variation "
+       "- realistic, since target importance, aircraft availability and weather are "
+       "not in the data.")
+bullet("All practical checks pass: no influential records, moderate collinearity, "
+       "sensible residuals, and the prediction interval covers the observed mean of a "
+       "real mission profile.")
+bullet("The correlation analysis adds a caution: on data this skewed, Pearson "
+       "coefficients understate the links (weapons against load: 0.31, against the "
+       "Spearman 0.65).")
 
 doc.add_page_break()
 
 # ============================================================== overall
 H("Overall conclusion", size=14, before=0)
-steps = [
-    "The data preparation pipeline (chunked reading of the 46-lakh-record file, "
-    "weapon-delivery population definition, random sample of 20,000 records, cleaning "
-    "with documented rules) produced a reproducible analysis file; every number in "
-    "this report is regenerated by one command per script and logged in outputs/.",
-    "Problem 1: the recorded campaign peaks in 1970, concentrates on South Vietnam "
-    "and Laos, is flown mainly by F-4, F-100, A-1, A-4 and A-37 aircraft and delivers "
-    "mostly bombs; every numerical variable is strongly right-skewed, so the typical "
-    "record is described by medians and quartiles rather than means.",
-    "Problem 2: the weapon load is lognormal in shape (far better than the normal "
-    "model) but the fit is formally rejected because the load is a mixture of very "
-    "different aircraft groups (B-52 median 3.82 lakh lb against A-37 21,240 lb); "
-    "model-based probabilities are still accurate to within about 4 percentage "
-    "points; the central limit theorem check for the mean of 30 records matched "
-    "theory in mean and standard error.",
-    "Problem 3: day deliveries carry about 39% more load than night deliveries "
-    "(geometric means; medians 42,240 against 24,900 lb; Welch p = 1.08e-15, d = "
-    "0.26) - the raw means mislead because a few very heavy night formations pull "
-    "the night mean up.",
-    "Problem 4: the aircraft mix is not independent of the target country "
-    "(chi-square = 4,538.3, df = 18, p < 2.2e-16, Cramer's V = 0.278); the "
-    "standardised residuals show exactly how each aircraft family is tied to a "
-    "theatre.",
-    "Problem 5: log10 of the aircraft per record is explained by type, period, "
-    "country, year and source (R squared = 0.166, F = 267.2); B-52 records carry "
-    "about 1.56 times the aircraft of an F-4 record and night records about 37% "
-    "fewer; the prediction example validated against the observed records.",
-    "Across the five problems one methodological lesson repeats: the recorded "
-    "quantities (weapons, load) are extremely right-skewed, so medians, geometric "
-    "means and log-scale tests describe the data honestly, while raw means are "
-    "distorted by a small number of very large deliveries.",
-    "Main limitations, stated consistently: records are delivery events (not "
-    "independent missions), the load is recorded only in SEADAB, several raw columns "
-    "are unusable (WEAPONTYPECLASS 100% empty, BDA 94% empty), and the source file "
-    "mixes four databases without de-duplication flags.",
-]
-for i, s in enumerate(steps, 1):
-    P(f"{i}. {s}", align="justify", after=4)
+bullet("Data: 46.7 lakh raw records reduced to a documented, reproducible 20,000-record "
+       "random sample; every number in this report is regenerated by the scripts and "
+       "logged in outputs/.")
+bullet("Problem 1 - the campaign peaks in 1970, concentrates on South Vietnam and "
+       "Laos, is flown mainly by the F-4, F-100 and A-1, and delivers mostly bombs.")
+bullet("Problem 2 - the weapon load follows a lognormal shape (far better than the "
+       "normal), but the fit is formally rejected because the load is a mixture of "
+       "aircraft types; model probabilities stay within about 5 percentage points, and "
+       "the CLT check passed.")
+bullet("Problem 3 - day deliveries are about 39% heavier than night deliveries in "
+       "typical value (medians 42,240 against 24,900 lb), with a small-to-moderate "
+       "effect size.")
+bullet("Problem 4 - the aircraft mix depends strongly on the target country "
+       "(chi-square = 4,538.3, V = 0.278): each aircraft family has its own theatre.")
+bullet("Problem 5 - formation size is explained by type, period, country, year and "
+       "source (R squared = 0.166); B-52 records carry about 1.56 times the aircraft "
+       "of an F-4 record, night records about 37% fewer - and the prediction test "
+       "passed.")
+bullet("One lesson repeats in all five problems: these data are heavily right-skewed, "
+       "so medians, geometric means and log-scale tests tell the honest story - raw "
+       "means can even flip the conclusion.")
+bullet("Same caveats throughout: records are delivery events, not independent "
+       "missions; the load is recorded only in SEADAB; several raw columns are "
+       "unusable.")
 
 H("R packages and software used", after=4)
 P("R 4.6.1 with RStudio-compatible plain scripts. Packages: readr (chunked reading "
