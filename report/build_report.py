@@ -157,7 +157,10 @@ P("Semester I", size=13, align="center", after=24)
 
 P("Submitted by", size=12, bold=True, align="left", after=4)
 table(["Sr. No.", "Name of the student", "PRN number", "Branch"],
-      [["1.", "", "", ""], ["2.", "", "", ""], ["3.", "", "", ""]],
+      [["1.", "Om Khanjodkar", "125B1B283", "B.Tech"],
+       ["2.", "Siddhant Verma", "125B1B278", "B.Tech"],
+       ["3.", "Parth Ghumade", "125B1B234", "B.Tech"],
+       ["4.", "Tanishk Malge", "125B1B247", "B.Tech"]],
       [1.6, 7.0, 4.2, 4.2], size=11, center_cols=(0,))
 
 P("", after=10)
@@ -170,17 +173,17 @@ H("Project Title", after=4)
 P("Statistical Analysis of the Vietnam War Bombing Operations Data using R", bold=True, after=10)
 
 H("Data used", after=4)
-P("THOR Vietnam War bombing operations database (Combat Archives, THOR project). "
-  "File: THOR_Vietnam_Bombing_Operations.csv. The file is public research data on "
-  "weapon-delivery records of the air campaign in South-East Asia.", after=8)
+P("The project uses the THOR Vietnam War bombing operations database (Combat Archives, "
+  "THOR project), file THOR_Vietnam_Bombing_Operations.csv. It is public research data "
+  "that lists weapon-delivery records of the air campaign in South-East Asia.", after=8)
 
 H("Details of the data", after=4)
-P("The file contains 46,70,416 records (rows) and 47 columns covering mission dates "
-  "from 1 June 1965 to 30 June 1975. One row is one weapon delivery event as reported "
-  "by one source database (SEADAB, CACTA6669, CACTA6570 or SACCOACT); the column "
-  "SOURCERECORD identifies the source. The columns are listed below together with the "
-  "share of values missing in the full file (computed by a complete scan of the file, "
-  "script scripts/00_profile_raw.R).", after=6)
+P("The raw file has 46,70,416 rows and 47 columns and covers missions from 1 June 1965 "
+  "to 30 June 1975. Each row is one weapon-delivery event as reported by one of four "
+  "source databases (SEADAB, CACTA6669, CACTA6570 or SACCOACT); the SOURCERECORD "
+  "column says which one. The columns and the share of missing values in the full file "
+  "(measured by scanning the whole file with scripts/00_profile_raw.R) are listed "
+  "below.", after=6)
 
 cols = [
     ("1", "THOR_DATA_VIET_ID", "Number", "Unique record identifier in the THOR Vietnam database; checked to be unique (46,70,416 distinct values).", "0%"),
@@ -242,19 +245,19 @@ doc.add_page_break()
 
 # ============================================================== preparation
 H("Data preparation and sampling", before=0, after=4)
-P("The 47-column file mixes four source databases and contains records that did not "
-  "deliver any weapon (for example jettison or return only sorties). The following "
-  "steps were applied (script scripts/01_clean.R):", after=4)
-bullet("Step 1 - Population. The full file was scanned and the 23,46,224 records with "
-       "NUMWEAPONSDELIVERED > 0 (50.24% of the file) were kept. These are the records "
-       "in which a weapon was actually delivered, which is the subject of the study.")
-bullet("Step 2 - Sampling. A simple random sample without replacement of 20,000 records "
-       "was drawn from those 23,46,224 records (set.seed(2026)). Working on a random "
-       "sample keeps every run of the scripts fast while the sample is still large "
-       "enough for every test in this report.")
+P("The 47-column file mixes four source databases and also holds records that delivered "
+  "no weapon at all (jettison or return-only sorties, for example). The analysis file "
+  "was built from it in three steps (script scripts/01_clean.R):", after=4)
+bullet("Step 1 - Population. A full scan of the file kept the 23,46,224 records with "
+       "NUMWEAPONSDELIVERED > 0 (50.24% of the file) - the records in which a weapon "
+       "was actually delivered, which is what this study is about.")
+bullet("Step 2 - Sampling. A simple random sample without replacement of 20,000 "
+       "records was drawn from those 23,46,224 (set.seed(2026)). A random sample keeps "
+       "every script fast to run while staying large enough for all the tests in this "
+       "report.")
 bullet("Step 3 - Cleaning and derivation. The sample was cleaned and the analysis "
-       "variables were derived; the result is clean_data.csv (20,000 records, 47 raw "
-       "plus 17 derived columns) and a data-quality log (outputs/01_data_quality.txt).")
+       "variables were derived, giving clean_data.csv (20,000 records, 47 raw plus 17 "
+       "derived columns) and a data-quality log in outputs/01_data_quality.txt.")
 
 SH("Cleaning rules applied to the sample")
 bullet("Mission dates: the 272 records stored in YYYYMMDD format were converted; all "
@@ -295,23 +298,24 @@ table(["Variable", "Missing", "Share", "Variable", "Missing", "Share"],
 P("Table 2: Missing values of the analysis variables after cleaning.",
   size=10.5, italic=True, align="center", after=8)
 
-P("The weapon load (LOAD_LB) is recorded only in the SEADAB source, which is why 70.5% "
-  "of the sample has no load; every problem that uses the load states this and analyses "
-  "only the records where it is known. The cloud cover is missing for more than half of "
-  "the records because ground reports often did not observe it.", after=8)
+P("Two gaps matter more than the rest. The weapon load (LOAD_LB) exists only in the "
+  "SEADAB source, so 70.5% of the sample has no load; every problem that uses the load "
+  "says so and works only with the records where it is known. Cloud cover is missing "
+  "for more than half of the records because the ground reports often did not observe "
+  "it.", after=8)
 
 SH("Limitations of the data (stated once, valid for every problem)")
-bullet("One record is one delivery event as reported by one source, not one mission. "
-       "A single mission can produce several records, so records are not fully "
-       "independent. The p-values in the tests are therefore slightly optimistic; the "
-       "effect sizes are quoted for this reason.")
-bullet("The four source databases overlap in time and purpose; the database merges "
-       "them without deduplication flags, so double counting of unusual events cannot "
-       "be fully excluded.")
-bullet("Weapons loaded weight is recorded only in SEADAB; results about the load apply "
-       "to that source only.")
-bullet("The source data are historical reports of the war; recorded numbers "
-       "(weapons, aircraft) are the numbers reported at the time.")
+bullet("A record is one delivery event as reported by one source, not one mission. A "
+       "mission can produce several records, so the records are not fully independent "
+       "and the p-values are slightly optimistic; this is why the effect sizes are "
+       "quoted alongside them.")
+bullet("The four source databases overlap in time and purpose, and the merged file has "
+       "no de-duplication flags, so double counting of unusual events cannot be ruled "
+       "out completely.")
+bullet("The weapon load is recorded only in SEADAB, so every load result applies to "
+       "that source only.")
+bullet("The source data are historical war reports: the numbers of weapons and aircraft "
+       "are the numbers reported at the time, not later corrections.")
 
 # ============================================================== unit mapping
 H("Mapping of the course units to the problem statements", after=4)
@@ -902,15 +906,17 @@ bullet("Same caveats throughout: records are delivery events, not independent "
        "unusable.")
 
 H("R packages and software used", after=4)
-P("R 4.6.1 with RStudio-compatible plain scripts. Packages: readr (chunked reading "
-  "of the large raw file), ggplot2 (all figures, black-and-white theme), base R "
-  "statistics (lm, t.test, chisq.test, shapiro.test, wilcox.test). The Levene test, "
-  "the moment-based skewness/kurtosis and the variance inflation calculation are "
-  "implemented in base R in scripts/common_setup.R so that the project runs with the "
-  "standard library only. File map: scripts/00_profile_raw.R and 00b/00c (profiling "
-  "the raw file), scripts/01_clean.R (builds clean_data.csv), scripts/problem1.R to "
-  "problem5.R (one script per problem statement), outputs/ (text logs used in this "
-  "report), figures/ (all graphs).", after=6)
+bullet("R 4.6.1, run as plain scripts in RStudio.")
+bullet("readr - reads the large raw file in chunks.")
+bullet("ggplot2 - produces every figure in a black-and-white theme.")
+bullet("Base R statistics - lm, t.test, chisq.test, shapiro.test and wilcox.test.")
+bullet("Base R custom code - Levene's test, the moment-based skewness/kurtosis and the "
+       "variance inflation factors are written by hand in scripts/common_setup.R, so "
+       "the project needs no package beyond the two above.")
+bullet("Scripts - 00_profile_raw.R with 00b/00c profile the raw file, 01_clean.R builds "
+       "clean_data.csv, and problem1.R to problem5.R each handle one problem statement.")
+bullet("Outputs - outputs/ holds the text logs quoted in this report, figures/ holds all "
+       "graphs, and report/ holds this document and its PDF.")
 
 doc.save(os.path.join(OUT, "report.docx"))
 print("saved", os.path.join(OUT, "report.docx"))
