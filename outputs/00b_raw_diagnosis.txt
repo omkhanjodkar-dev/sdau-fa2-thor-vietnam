@@ -1,0 +1,456 @@
+DIAGNOSIS OF SUSPICIOUS COLUMNS
+rows: 4670416 
+
+PERIODOFDAY values outside {D,N}: 70768 
+
+PERIODOFDAY level counts:
+      D       N       M       E       0       9       P       O       3       H 
+3239931 1159953   40308   30348      30      22      11       8       5       5 
+      W       R       8       5       B       C       4       ^       1       Q 
+      5       5       5       3       3       3       2       2       1       1 
+      7 
+      1 
+
+TGTCOUNTRY level counts (all levels):
+ SOUTH VIETNAM           LAOS  NORTH VIETNAM       CAMBODIA       THAILAND 
+       2203684        1269847         695662         223722          60593 
+WESTPAC WATERS        UNKNOWN    PHILLIPINES 
+            74             59              1 
+
+MILSERVICE level counts:
+   USAF     USN    VNAF    USMC    RLAF     KAF    RAAF   OTHER     USA 
+2813692  694186  634717  453996   32779   24470   12714     399     214 
+
+SOURCERECORD level counts:
+CACTA6669    SEADAB CACTA6570  SACCOACT 
+  2291386   1868286    427250     83494 
+
+TGTCLOUDCOVER level counts:
+         CLEAR      SCATTERED         BROKEN       OVERCAST      UNDERCAST 
+        924493         476996         365341         261658         101965 
+       NOT OBS      IN CLOUDS BETWEEN LAYERS 
+         84477          11051           4187 
+
+MFUNC_DESC_CLASS level counts:
+   KINETIC NONKINETIC 
+   3192112    1478304 
+
+--- flags ---
+NUMWEAPONSDELIVERED > 0        : 2346224 
+NUMWEAPONSDELIVERED == 9999    : 109 
+NUMWEAPONSDELIVERED >= 1000    : 9775 
+WEAPONSLOADEDWEIGHT == -1      : 2802130 
+WEAPONSLOADEDWEIGHT == 0       : 1158908 
+WEAPONSLOADEDWEIGHT > 0        : 709378 
+WEAPONSLOADEDWEIGHT > 1e7      : 106 
+MFUNC_DESC_CLASS == KINETIC    : 3192112 
+NUMOFACFT == 0                 : 8264 
+NUMOFACFT > 100                : 173 
+FLTHOURS > 100                 : 344164 
+NUMWEAPONSRETURNED == -1       : 1951780 
+NUMWEAPONSJETTISONED == -1     : 1951780 
+WEAPONTYPE missing             : 2403497 
+WEAPONSLOADEDWEIGHT>0 & WEAPONTYPE missing : 461953 
+MSNDATE range: 1965-06-01 to 1975-06-30 
+
+--- examples of rows with odd PERIODOFDAY (transposed) ---
+
+Example 1 :
+      [,1]                            
+ [1,] 35749                           
+ [2,] UNITED STATES OF AMERICA        
+ [3,] USAF                            
+ [4,] 1970-02-26                      
+ [5,] 1308046                         
+ [6,] SEADAB                          
+ [7,] C-130                           
+ [8,] UBON AB                         
+ [9,] <NA>                            
+[10,] <NA>                            
+[11,] <NA>                            
+[12,] 4400                            
+[13,] <NA>                            
+[14,] M129EA1 LEAFLETS(1K)            
+[15,] <NA>                            
+[16,] 200                             
+[17,] C130                            
+[18,] C130                            
+[19,] <NA>                            
+[20,] <NA>                            
+[21,] RICKEY47                        
+[22,] 472                             
+[23,] 8.0                             
+[24,] <NA>                            
+[25,] 6447                            
+[26,] 1                               
+[27,] <NA>                            
+[28,] P                               
+[29,] 315AD                           
+[30,] <NA>                            
+[31,] <NA>                            
+[32,] SOUTH VIETNAM                   
+[33,] <NA>                            
+[34,] <NA>                            
+[35,] <NA>                            
+[36,] <NA>                            
+[37,] UNIT: 315AD - CALLSIGN: RICKEY47
+[38,] <NA>                            
+[39,] 27796445                        
+[40,] NONKINETIC                      
+[41,] -1                              
+[42,] -1                              
+[43,] <NA>                            
+[44,] <NA>                            
+[45,] <NA>                            
+[46,] <NA>                            
+[47,] 0                               
+
+Example 2 :
+      [,1]                        
+ [1,] 55950                       
+ [2,] UNITED STATES OF AMERICA    
+ [3,] USAF                        
+ [4,] 1970-03-01                  
+ [5,] 1417652                     
+ [6,] SEADAB                      
+ [7,] A-37                        
+ [8,] BIEN HOA                    
+ [9,] 11.243055                   
+[10,] 106.535555                  
+[11,] <NA>                        
+[12,] 4                           
+[13,] <NA>                        
+[14,] <NA>                        
+[15,] <NA>                        
+[16,] 0                           
+[17,] A37                         
+[18,] A37                         
+[19,] <NA>                        
+[20,] <NA>                        
+[21,] RAP27                       
+[22,] 31                          
+[23,] 5.0                         
+[24,] CLOSE AIR SUPPORT           
+[25,] 5200                        
+[26,] 2                           
+[27,] <NA>                        
+[28,] P                           
+[29,] 3TFW                        
+[30,] <NA>                        
+[31,] <NA>                        
+[32,] SOUTH VIETNAM               
+[33,] <NA>                        
+[34,] 111435N1063208E             
+[35,] DDMMSSN DDDMMSSE            
+[36,] <NA>                        
+[37,] UNIT: 3TFW - CALLSIGN: RAP27
+[38,] XT                          
+[39,] 27906051                    
+[40,] KINETIC                     
+[41,] -1                          
+[42,] -1                          
+[43,] <NA>                        
+[44,] <NA>                        
+[45,] <NA>                        
+[46,] <NA>                        
+[47,] 34800                       
+
+Example 3 :
+      [,1]                       
+ [1,] 69466                      
+ [2,] AUSTRALIA                  
+ [3,] RAAF                       
+ [4,] 1970-03-02                 
+ [5,] 1485888                    
+ [6,] SEADAB                     
+ [7,] B-57                       
+ [8,] PHAN RANG                  
+ [9,] 9.144166                   
+[10,] 104.9225                   
+[11,] BASE CAMP AREA             
+[12,] 6                          
+[13,] 2114.0                     
+[14,] M117 GP BOMB (750) LD      
+[15,] <NA>                       
+[16,] 750                        
+[17,] B57                        
+[18,] B57                        
+[19,] <NA>                       
+[20,] <NA>                       
+[21,] MP51                       
+[22,] 21                         
+[23,] 5.0                        
+[24,] CLOSE AIR SUPPORT          
+[25,] 5025                       
+[26,] 1                          
+[27,] <NA>                       
+[28,] 5                          
+[29,] 2RAF                       
+[30,] <NA>                       
+[31,] <NA>                       
+[32,] SOUTH VIETNAM              
+[33,] <NA>                       
+[34,] 090839N1045521E            
+[35,] DDMMSSN DDDMMSSE           
+[36,] <NA>                       
+[37,] UNIT: 2RAF - CALLSIGN: MP51
+[38,] VR                         
+[39,] 27974287                   
+[40,] KINETIC                    
+[41,] -1                         
+[42,] -1                         
+[43,] <NA>                       
+[44,] <NA>                       
+[45,] TARGET                     
+[46,] 2114.0                     
+[47,] 49200                      
+
+Example 4 :
+      [,1]                             
+ [1,] 93169                            
+ [2,] UNITED STATES OF AMERICA         
+ [3,] USMC                             
+ [4,] 1972-11-02                       
+ [5,] 1611338                          
+ [6,] SEADAB                           
+ [7,] AH-1                             
+ [8,] TONKIN GULF                      
+ [9,] 17.859166000000002               
+[10,] 106.415833                       
+[11,] <NA>                             
+[12,] 21                               
+[13,] 2310.0                           
+[14,] <NA>                             
+[15,] <NA>                             
+[16,] 0                                
+[17,] AH1                              
+[18,] AH1                              
+[19,] <NA>                             
+[20,] <NA>                             
+[21,] PISTOL P                         
+[22,] 27                               
+[23,] 44.0                             
+[24,] ARMED HELICOPTER                 
+[25,] 0593                             
+[26,] 2                                
+[27,] <NA>                             
+[28,] 3                                
+[29,] 770CTG                           
+[30,] <NA>                             
+[31,] <NA>                             
+[32,] NORTH VIETNAM                    
+[33,] <NA>                             
+[34,] 175133N1062457E                  
+[35,] DDMMSSN DDDMMSSE                 
+[36,] <NA>                             
+[37,] UNIT: 770CTG - CALLSIGN: PISTOL P
+[38,] XE                               
+[39,] 28099737                         
+[40,] KINETIC                          
+[41,] -1                               
+[42,] -1                               
+[43,] <NA>                             
+[44,] <NA>                             
+[45,] <NA>                             
+[46,] 2310.0                           
+[47,] 90510                            
+
+Example 5 :
+      [,1]                        
+ [1,] 147477                      
+ [2,] UNITED STATES OF AMERICA    
+ [3,] USAF                        
+ [4,] 1970-03-01                  
+ [5,] 37277                       
+ [6,] SEADAB                      
+ [7,] A-37                        
+ [8,] BIEN HOA                    
+ [9,] 11.243055                   
+[10,] 106.535555                  
+[11,] <NA>                        
+[12,] 4                           
+[13,] <NA>                        
+[14,] <NA>                        
+[15,] <NA>                        
+[16,] 0                           
+[17,] A37                         
+[18,] A37                         
+[19,] <NA>                        
+[20,] <NA>                        
+[21,] RAP27                       
+[22,] 31                          
+[23,] 5.0                         
+[24,] CLOSE AIR SUPPORT           
+[25,] 5200                        
+[26,] 2                           
+[27,] <NA>                        
+[28,] P                           
+[29,] 3TFW                        
+[30,] <NA>                        
+[31,] <NA>                        
+[32,] SOUTH VIETNAM               
+[33,] <NA>                        
+[34,] 111435N1063208E             
+[35,] DDMMSSN DDDMMSSE            
+[36,] <NA>                        
+[37,] UNIT: 3TFW - CALLSIGN: RAP27
+[38,] XT                          
+[39,] 26525588                    
+[40,] KINETIC                     
+[41,] -1                          
+[42,] -1                          
+[43,] <NA>                        
+[44,] <NA>                        
+[45,] <NA>                        
+[46,] <NA>                        
+[47,] 21240                       
+
+Example 6 :
+      [,1]                        
+ [1,] 160748                      
+ [2,] UNITED STATES OF AMERICA    
+ [3,] USAF                        
+ [4,] 1970-03-01                  
+ [5,] 105921                      
+ [6,] SEADAB                      
+ [7,] A-37                        
+ [8,] BIEN HOA                    
+ [9,] 11.243055                   
+[10,] 106.535555                  
+[11,] <NA>                        
+[12,] 0                           
+[13,] <NA>                        
+[14,] <NA>                        
+[15,] <NA>                        
+[16,] 0                           
+[17,] A37                         
+[18,] A37                         
+[19,] <NA>                        
+[20,] <NA>                        
+[21,] RAP27                       
+[22,] 31                          
+[23,] 5.0                         
+[24,] CLOSE AIR SUPPORT           
+[25,] 5200                        
+[26,] 2                           
+[27,] <NA>                        
+[28,] P                           
+[29,] 3TFW                        
+[30,] <NA>                        
+[31,] <NA>                        
+[32,] SOUTH VIETNAM               
+[33,] <NA>                        
+[34,] 111435N1063208E             
+[35,] DDMMSSN DDDMMSSE            
+[36,] <NA>                        
+[37,] UNIT: 3TFW - CALLSIGN: RAP27
+[38,] XT                          
+[39,] 26594320                    
+[40,] KINETIC                     
+[41,] -1                          
+[42,] -1                          
+[43,] <NA>                        
+[44,] <NA>                        
+[45,] <NA>                        
+[46,] <NA>                        
+[47,] 0                           
+
+Example 7 :
+      [,1]                       
+ [1,] 267547                     
+ [2,] UNITED STATES OF AMERICA   
+ [3,] USN                        
+ [4,] 1972-08-30                 
+ [5,] 661527                     
+ [6,] SEADAB                     
+ [7,] A-6                        
+ [8,] TONKIN GULF                
+ [9,] <NA>                       
+[10,] <NA>                       
+[11,] <NA>                       
+[12,] 0                          
+[13,] 9080.0                     
+[14,] <NA>                       
+[15,] <NA>                       
+[16,] 0                          
+[17,] A6                         
+[18,] A6                         
+[19,] <NA>                       
+[20,] <NA>                       
+[21,] K                          
+[22,] 1                          
+[23,] 35.0                       
+[24,] ESCORT/COVER               
+[25,] 1312                       
+[26,] 1                          
+[27,] <NA>                       
+[28,] 0                          
+[29,] 777CTG                     
+[30,] <NA>                       
+[31,] <NA>                       
+[32,] <NA>                       
+[33,] <NA>                       
+[34,] <NA>                       
+[35,] <NA>                       
+[36,] <NA>                       
+[37,] UNIT: 777CTG - CALLSIGN:  K
+[38,] <NA>                       
+[39,] 27149926                   
+[40,] NONKINETIC                 
+[41,] -1                         
+[42,] -1                         
+[43,] <NA>                       
+[44,] <NA>                       
+[45,] <NA>                       
+[46,] 9080.0                     
+[47,] 0                          
+
+Example 8 :
+      [,1]                            
+ [1,] 379107                          
+ [2,] VIETNAM (SOUTH)                 
+ [3,] VNAF                            
+ [4,] 1971-01-14                      
+ [5,] 1735932                         
+ [6,] SEADAB                          
+ [7,] A-1                             
+ [8,] BINH THUY                       
+ [9,] 10.922222                       
+[10,] 104.73                          
+[11,] BASE CAMP AREA                  
+[12,] 8                               
+[13,] 93.0                            
+[14,] MK81 GP BOMB (250)              
+[15,] <NA>                            
+[16,] 250                             
+[17,] A1                              
+[18,] A1                              
+[19,] <NA>                            
+[20,] <NA>                            
+[21,] PHOENIXS                        
+[22,] 44                              
+[23,] 5.0                             
+[24,] CLOSE AIR SUPPORT               
+[25,] E500                            
+[26,] 2                               
+[27,] <NA>                            
+[28,] 0                               
+[29,] 514FS                           
+[30,] <NA>                            
+[31,] <NA>                            
+[32,] CAMBODIA                        
+[33,] <NA>                            
+[34,] 105520N1044348E                 
+[35,] DDMMSSN DDDMMSSE                
+[36,] <NA>                            
+[37,] UNIT: 514FS - CALLSIGN: PHOENIXS
+[38,] VS                              
+[39,] 28224330                        
+[40,] KINETIC                         
+[41,] -1                              
+[42,] -1                              
+[43,] <NA>                            
+[44,] <NA>                            
+[45,] RNO ****                        
+[46,] 93.0                            
+[47,] 20800                           

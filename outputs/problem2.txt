@@ -1,0 +1,90 @@
+=============================================================
+PROBLEM 2: Probability model for the weapon load of a record
+=============================================================
+
+Records with a recorded weapon load (LOAD_LB > 0): 5894 
+share of the 20,000-record sample: 29.5 %
+source of these records:
+
+   SEADAB CACTA6669 CACTA6570  SACCOACT 
+     5894         0         0         0 
+
+--- 2.1 Descriptive statistics of the weapon load (pounds) ---
+n       : 5894 
+mean    : 59795.3 
+median  : 34260 
+sd      : 94711.3 
+min/max : 60 / 896480 
+skewness: 4.554  (0 for a symmetric variable)
+kurtosis: 25.245  (0 for a normal variable)
+quartiles: 15930  34260  63720 
+
+--- 2.2 Candidate 1: normal distribution for the load ---
+maximum likelihood estimates: mean = 59795.3  sd = 94703.2 
+chi-square goodness of fit (8 equal-probability bins): statistic = 7337.8  df = 5  p-value = < 2.2e-16 
+observed counts per bin: 0 0 2512 1461 1015 303 300 303 
+the normal model puts 12.5 % of the records in the lowest bin although none can be negative or zero.
+
+--- 2.3 Candidate 2: lognormal model ---
+log10(load): mean = 4.4669  sd = 0.5616 
+=> lognormal parameters in natural logs: meanlog = 10.2854  sdlog = 1.2931 
+skewness of the log10 values: -0.644   kurtosis: 1.227 
+Shapiro-Wilk test on a random subsample of 2000 log10 values: W = 0.9744  p-value = < 2.2e-16 
+chi-square goodness of fit (8 equal-probability bins): statistic = 610.2  df = 5  p-value = < 2.2e-16 
+observed counts per bin : 727 582 550 653 1163 1006 825 388 
+expected counts per bin : 736.8 736.8 736.8 736.8 736.8 736.8 736.8 736.8 
+
+comparison of observed and fitted quartiles of the load:
+           25%   50%   75%
+observed 15930 34260 63720
+fitted   12249 29302 70097
+
+median load and number of records by aircraft group:
+$`F-4 Phantom`
+     n median 
+  1945  47790 
+
+$`F-100 Super Sabre`
+     n median 
+   405  33200 
+
+$`A-4 Skyhawk`
+     n median 
+   254  31200 
+
+$`A-1 Skyraider`
+     n median 
+   465  30000 
+
+$`A-37 Dragonfly`
+     n median 
+   963  21240 
+
+$`B-52 Stratofortress`
+     n median 
+   213 382320 
+
+$Other
+     n median 
+  1649  31860 
+
+
+--- 2.4 Probabilities from the fitted lognormal model ---
+     threshold fitted_P observed_P
+[1,]     25000   0.5489     0.5976
+[2,]     50000   0.3397     0.3522
+[3,]     75000   0.2337     0.1971
+[4,]    100000   0.1713     0.1318
+
+P(20,000 < load < 60,000) fitted = 0.3264  observed = 0.3453 
+
+--- 2.5 Sampling distribution of the mean load of n = 30 records ---
+mean of the variable       : 59795.3 
+standard deviation         : 94711.3 
+standard error of the mean (n = 30): 17291.8 
+CLT normal approximation: P(sample mean > 70,000 lb) = 0.2775 
+simulation, 20,000 samples of 30 records:
+  P(sample mean > 70,000 lb) = 0.2494 
+  mean of the sample means   = 59736.9  (theoretical 59795.3 )
+  sd of the sample means     = 17169.1  (theoretical 17291.8 )
+  skewness of the means      = 0.822 

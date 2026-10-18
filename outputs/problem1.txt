@@ -1,0 +1,117 @@
+=============================================================
+PROBLEM 1: Descriptive analysis of weapon-delivery records
+=============================================================
+
+Dataset: clean_data.csv, 20000 records, 1965-10-01 to 1975-06-03 
+One record is one weapon delivery event reported by the source
+(THOR Vietnam War bombing operations database).
+
+--- 1.1 Variables used ---
+Numerical : WEAPONS_DELIVERED, AIRCRAFT_NO, LOAD_LB, TGT_HOUR, LAT, LON 
+Categorical: PERIOD, COUNTRY, SERVICE, AIRCRAFT_GROUP, CLOUD, SOURCE_DB 
+
+class and missingness of the numerical variables:
+  WEAPONS_DELIVERED  class=integer   missing=    2 ( 0.01%)
+  AIRCRAFT_NO        class=integer   missing=   13 ( 0.06%)
+  LOAD_LB            class=numeric   missing=14106 (70.53%)
+  TGT_HOUR           class=integer   missing=    8 ( 0.04%)
+  LAT                class=numeric   missing= 2456 (12.28%)
+  LON                class=numeric   missing= 2456 (12.28%)
+
+class and missingness of the categorical variables:
+  PERIOD             class=factor    missing=  834 ( 4.17%)  levels=2
+  COUNTRY            class=factor    missing=  349 ( 1.75%)  levels=5
+  SERVICE            class=factor    missing=    0 ( 0.00%)  levels=5
+  AIRCRAFT_GROUP     class=factor    missing=    1 ( 0.00%)  levels=7
+  CLOUD              class=factor    missing=10729 (53.64%)  levels=5
+  SOURCE_DB          class=factor    missing=    0 ( 0.00%)  levels=4
+
+--- 1.2 Frequency tables ---
+
+Records per year:
+
+1965 1966 1967 1968 1969 1970 1971 1972 1973 1974 1975 
+ 300 1954 2337 3352 2470 3532 2161 2642  910  256   86 
+
+Records per target country (share of non-missing):
+
+South Vietnam North Vietnam          Laos      Cambodia      Thailand 
+        10510          2363          5736           960            82 
+
+South Vietnam North Vietnam          Laos      Cambodia      Thailand 
+         53.5          12.0          29.2           4.9           0.4 
+
+Records per aircraft group:
+
+        F-4 Phantom   F-100 Super Sabre         A-4 Skyhawk       A-1 Skyraider 
+               4827                2877                1841                2067 
+     A-37 Dragonfly B-52 Stratofortress               Other 
+               1515                 836                6036 
+
+        F-4 Phantom   F-100 Super Sabre         A-4 Skyhawk       A-1 Skyraider 
+               24.1                14.4                 9.2                10.3 
+     A-37 Dragonfly B-52 Stratofortress               Other 
+                7.6                 4.2                30.2 
+
+Records by period of day:
+
+  Day Night  <NA> 
+13786  5380   834 
+
+Records by source database:
+
+   SEADAB CACTA6669 CACTA6570  SACCOACT 
+     7606      9944      1939       511 
+
+Records by what was delivered (weapon class):
+
+   BOMB  ROCKET     GUN MISSILE SUPPORT    <NA> 
+  12362     957     535     332    1564    4250 
+
+--- 1.3 Descriptive statistics of the numerical variables ---
+
+          variable     n      mean   median        sd      min       q1
+ WEAPONS_DELIVERED 19998    38.103     8.00   268.907   1.0000     4.00
+       AIRCRAFT_NO 19987     3.061     2.00     7.530   1.0000     2.00
+           LOAD_LB  5894 59795.341 34260.00 94711.263  60.0000 15930.00
+          TGT_HOUR 19992     8.978     8.00     6.231   0.0000     4.00
+               LAT 17544    14.987    15.82     3.000   0.1076    11.77
+               LON 17544   106.523   106.52     1.308 100.4494   105.90
+       q3       max skewness kurtosis
+    16.00   9040.00  21.4966 552.9148
+     2.00    276.00  11.3494 183.1987
+ 63720.00 896480.00   4.5541  25.2448
+    13.00     23.00   0.5181  -0.6241
+    17.06     22.71  -0.2257  -0.9988
+   107.25    111.25  -0.5258   0.8568
+
+interquartile range of the key variables:
+WEAPONS_DELIVERED       AIRCRAFT_NO           LOAD_LB 
+               12                 0             47790 
+
+percentiles of WEAPONS_DELIVERED:
+    50%     75%     90%     95%     99%    100% 
+   8.00   16.00   52.30  122.15  400.00 9040.00 
+
+number and share of records with more than 100 weapons delivered:
+  count = 1147  share = 5.74 %
+
+--- 1.4 Figures ---
+
+fig1_1_records_by_year.png : records per year, peak year = 1970 with 3532 records; minimum year = 1975 with 86 
+fig1_2_monthly_by_country.png : monthly series per target country
+fig1_3_weapons_hist.png : histogram of weapons delivered per record
+fig1_4_weapons_by_country.png : boxplots of weapons delivered by country
+fig1_5_target_map.png : scatter plot of target coordinates
+
+--- 1.5 Supporting numbers ---
+share of records from the four years 1968-1971:
+   57.6 %
+median weapons delivered, South Vietnam: 8 
+median weapons delivered, North Vietnam: 8 
+median weapons delivered, Laos: 8 
+median weapons delivered, Cambodia: 12 
+mean and median weapons, bomb records: 16.88287 7 
+mean and max weapons, gun records: 60.12523 1950 
+median aircraft per record: 2 
+median hour at target (HH): 8 

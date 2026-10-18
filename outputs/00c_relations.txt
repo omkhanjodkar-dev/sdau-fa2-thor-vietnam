@@ -1,0 +1,87 @@
+ROWS scanned sample: 113912 
+
+-- WEAPONSLOADEDWEIGHT vs NUMWEAPONSDELIVERED*WEAPONTYPEWEIGHT (wlw>0) --
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+  3.333  10.000  10.620  11.552  11.400  82.000   11233 
+ratio ~ NUMOFACFT? cor(ratio, naf): 0.005367421 
+median ratio by NUMOFACFT (1..6):
+    0     1     2     3     4     5     6 
+10.78 10.62 10.62 10.62 10.62 10.13 12.60 
+share wlw>0 by SOURCERECORD:
+           
+             FALSE   TRUE
+  CACTA6570 100.00   0.00
+  CACTA6669 100.00   0.00
+  SACCOACT  100.00   0.00
+  SEADAB     62.08  37.92
+share wlw>0 by MFUNC_DESC_CLASS:
+            
+             FALSE  TRUE
+  KINETIC    80.23 19.77
+  NONKINETIC 94.71  5.29
+share wlw>0 by PERIODOFDAY:
+   
+     FALSE   TRUE
+  9 100.00   0.00
+  D  84.66  15.34
+  E 100.00   0.00
+  M 100.00   0.00
+  N  81.75  18.25
+  O 100.00   0.00
+
+-- WEAPONTYPE strings --
+unique weapon strings in sample: 190 
+
+        500LB GP MK-82         750LB GP M-117                   M-39 
+                  9989                   3776                   3297 
+        750LB BLU-1/27             PASSENGERS            250LB MK-81 
+                  2498                   2128                   2031 
+                  M-61 MK 82 GP BOMB (500) LD            MK-11/MK-12 
+                  1821                   1590                   1571 
+        500BLU11/23/32                  MK-24              CBU-24/29 
+                  1396                   1390                   1381 
+                7.62MM          2.75IN HE RKT           CARGO (TONS) 
+                  1363                   1101                   1032 
+           PHOTO EQUIP          500LB GP M-64                    M-3 
+                  1024                    999                    735 
+                MK82 B                 750 GP              CBU-14/25 
+                   688                    669                    602 
+          LAU-3A/AERO7  FLARES-MK24_MK6_LUUI8           5.0IN HE RKT 
+                   586                    577                    539 
+               SPARROW     MK81 GP BOMB (250)     AIM-7D_E_F SPARROW 
+                   472                    431                    424 
+            250LB M-57           1000LB MK-83             SIDEWINDER 
+                   405                    394                    391 
+
+class by grepl rule on text:
+cls
+    BOMB    FLARE GUN_AMMO  LEAFLET  MISSILE   NAPALM   OTHERW   ROCKET 
+   11353      623     2083      326     1103       19    37879     1815 
+    <NA> 
+   58711 
+
+mean nwd by derived class:
+    BOMB    FLARE GUN_AMMO  LEAFLET  MISSILE   NAPALM   OTHERW   ROCKET 
+   18.84    32.13    41.59  1393.45     1.42     3.63    28.32    41.95 
+median nwd by derived class:
+    BOMB    FLARE GUN_AMMO  LEAFLET  MISSILE   NAPALM   OTHERW   ROCKET 
+       4       14        6      300        0        4        6       20 
+
+-- match against weapons glossary --
+share of non-missing weapon strings found in glossary: 1 
+
+-- OPERATIONSUPPORTED grepl mapping on sample --
+hit
+    BARREL_ROLL       BLUE_TREE      IN_COUNTRY           OTHER ROLLING_THUNDER 
+           3143            1118           32578            6161           12965 
+    STEEL_TIGER            <NA> 
+          11191           46756 
+
+-- TIMEONTARGET sanity --
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+    0.0   310.0   800.0   836.6  1239.0  2550.0     712 
+share 0..2359: 0.9999 
+share with minute part 60..99 or =00: 1e-04 
+
+-- MSNDATE span --
+[1] "1965-10-01" "1975-06-27"

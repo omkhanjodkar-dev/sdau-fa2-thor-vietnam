@@ -1,0 +1,13 @@
+# large raw data (1.5 GB) -- not tracked, see README.md "Data"
+dataset/THOR_Vietnam_Bombing_Operations.csv
+
+# report QA artifacts
+report/preview/
+
+# OS / editor junk
+Thumbs.db
+Desktop.ini
+~$*.docx
+.Rproj.user/
+.Rhistory
+.RData

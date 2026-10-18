@@ -1,0 +1,69 @@
+STEP 1: scanning the raw file for weapon-delivery records
+  total records in the raw file      : 4670416
+  records with weapons delivered > 0 : 2346224 (50.24% of the file)
+STEP 2: simple random sample of 20000 records drawn with set.seed(2026)
+  rows collected:20000
+
+STEP 3: cleaning and derivation (n = 20000 sampled records)
+  duplicate THOR_DATA_VIET_ID values in sample:0
+  exactly duplicated rows (all 47 columns)   :0
+  mission dates in YYYYMMDD format (converted):272
+  unparseable dates:0
+  mission date range in sample:1965-10-01to1975-06-03
+  PERIODOFDAY codes other than D/N in sample:834
+  TGTCOUNTRY values mapped to 'Other':0
+  MILSERVICE values grouped into 'Other':118
+  TGTCLOUDCOVER 'NOT OBS' treated as missing:396
+  weapon strings not found in the glossary:0
+  NUMWEAPONSDELIVERED == 9999 (sentinel, set to NA) in sample:2
+  WEAPONSLOADEDWEIGHT == -1 (missing code, set to NA):12394
+  WEAPONSLOADEDWEIGHT == 0 (non-ordnance delivery, set to NA):1600
+  WEAPONSLOADEDWEIGHT above 1,000,000 lb (implausible, set to NA):112
+  NUMOFACFT == 0 (impossible, set to NA):13
+  TIMEONTARGET invalid (set to NA):8
+  coordinates outside the 0-30N, 90-130E box (set to NA):2456
+
+clean_data.csv written: 20000 rows, 64 columns
+
+Missingness of derived analysis variables in clean_data.csv
+  PERIOD                834 missing ( 4.17%)
+  COUNTRY               349 missing ( 1.75%)
+  SERVICE                 0 missing ( 0.00%)
+  SOURCE_DB               0 missing ( 0.00%)
+  AIRCRAFT_GROUP          1 missing ( 0.00%)
+  CLOUD               10729 missing (53.65%)
+  WEAPON_CLASS         4250 missing (21.25%)
+  WEAPONS_DELIVERED       2 missing ( 0.01%)
+  LOAD_LB             14106 missing (70.53%)
+  AIRCRAFT_NO            13 missing ( 0.06%)
+  TGT_HOUR                8 missing ( 0.04%)
+  LAT                  2456 missing (12.28%)
+  LON                  2456 missing (12.28%)
+  FLIGHT_HOURS            0 missing ( 0.00%)
+
+Cross tab: WEAPON_CLASS x MFUNC_DESC_CLASS in the sample
+         
+          KINETIC NONKINETIC
+  BOMB      11863        499
+  ROCKET      856        101
+  GUN         512         23
+  MISSILE     241         91
+  SUPPORT     220       1344
+  <NA>       3979        271
+
+Records by SOURCE_DB in the sample:
+
+   SEADAB CACTA6669 CACTA6570  SACCOACT 
+     7606      9944      1939       511 
+
+LOAD_LB summary:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+     60   15930   34260   59795   63720  896480   14106 
+
+WEAPONS_DELIVERED summary:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+    1.0     4.0     8.0    38.1    16.0  9040.0       2 
+
+AIRCRAFT_NO summary:
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.     NAs 
+  1.000   2.000   2.000   3.061   2.000 276.000      13 
