@@ -205,7 +205,7 @@ _logo.paragraph_format.space_before = Pt(4)
 _logo.paragraph_format.space_after = Pt(4)
 _logo.add_run().add_picture(os.path.join(ROOT, "report", "assets", "pccoe_logo.png"),
                             width=Cm(3.4))
-P("Department of AS&H", size=13, align="center", after=18)
+P("Department of Applied Science and Humanities", size=13, align="center", after=18)
 P("Report of FA-2 activity", size=15, bold=True, align="center", after=18)
 P("Subject: BSH23OE04: Open Elective: Statistical Data Analysis using R",
   size=13, bold=True, align="center", after=4)
@@ -437,7 +437,7 @@ step(4, "Five graphs: records per year, the monthly series by country, the histo
 step(5, "Read every number with the skew in mind and trust the median more than the "
         "mean when describing the typical record.")
 
-SH("Output with description")
+SH("Output with Description")
 P("Frequency tables (from outputs/problem1.txt):", after=2)
 table(["Year", "1965", "1966", "1967", "1968", "1969", "1970", "1971", "1972", "1973", "1974", "1975"],
       [["Records", "300", "1,954", "2,337", "3,352", "2,470", "3,532", "2,161", "2,642", "910", "256", "86"]],
@@ -557,7 +557,7 @@ step(6, "Central limit theorem: 20,000 simulated samples of 30 records; compare 
         "mean, sd and skewness of the sample means with theory, and compute the "
         "probability that the sample mean exceeds 70,000 lb both ways.")
 
-SH("Output with description")
+SH("Output with Description")
 table(["Quantity", "Value", "Quantity", "Value"],
       [["n (records with load)", "5,894", "Median", "34,260 lb"],
        ["Mean", "59,795.3 lb", "Q1, Q3", "15,930 / 63,720 lb"],
@@ -670,7 +670,7 @@ step(5, "Cross-check with the Mann-Whitney test on the raw loads, which assumes 
         "neither normality nor equal variances.")
 step(6, "Investigate the apparent contradiction between the raw means and the medians.")
 
-SH("Output with description")
+SH("Output with Description")
 table(["Group", "n", "Mean (lb)", "sd (lb)", "Median (lb)", "Q1", "Q3", "Geometric mean (lb)"],
       [["Day", "4,196", "57,614.7", "80,064.1", "42,240", "17,600", "65,600", "32,254"],
        ["Night", "1,695", "65,258.9", "1,23,637.8", "24,900", "8,900", "63,720", "23,165"]],
@@ -768,7 +768,7 @@ step(4, "Chi-square test of independence; Cramer's V for the effect size.")
 step(5, "Standardised residuals (observed - expected) / sqrt(expected) per cell; "
         "|residual| > 3 marks the cells that drive the association.")
 
-SH("Output with description")
+SH("Output with Description")
 table(["Aircraft group", "South Vietnam", "North Vietnam", "Laos", "Cambodia", "Total"],
       [["F-4 Phantom", "1,743 (36.5%)", "784 (16.4%)", "2,093 (43.9%)", "149 (3.1%)", "4,769"],
        ["F-100 Super Sabre", "2,516 (90.8%)", "9 (0.3%)", "140 (5.1%)", "107 (3.9%)", "2,772"],
@@ -854,7 +854,7 @@ step(5, "Diagnostics: residual plots, Shapiro-Wilk and moments of the residuals,
 step(6, "Prediction example with a 95% prediction interval and comparison with the "
         "observed records of the same profile.")
 
-SH("Output with description")
+SH("Output with Description")
 P("Correlations first (Spearman values; all p < 2.2e-16 unless stated). The strongest "
   "pair is weapons delivered and load (rho = 0.648) - heavier loads mean more bombs. "
   "Aircraft per record moves with the load (0.288) and with weapons delivered (0.173), "

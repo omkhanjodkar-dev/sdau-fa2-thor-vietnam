@@ -57,6 +57,24 @@ python report/convert_preview.py     # -> report/report.pdf + page previews
 The sample is drawn with set.seed(2026), so clean_data.csv and every output are
 reproduced exactly on each run.
 
+## Demo in RStudio (for the oral)
+
+1. Open `SDAUR.Rproj` (double-click, or File > Open Project). RStudio sets the
+   working directory to the project root; check with `getwd()`.
+2. First time on a new machine only: `install.packages(c("readr", "ggplot2"))`.
+3. Open a script in `scripts/` and press **Source** (Ctrl+Shift+S), or run it
+   line by line with Ctrl+Enter. Every script sources `scripts/common_setup.R`,
+   loads `clean_data.csv`, prints its results, and writes its log to `outputs/`
+   and its figures to `figures/`.
+4. Suggested live demo (each script takes 2-5 seconds):
+   `problem1.R` (descriptive statistics + 5 figures), `problem3.R` (Welch
+   t-test + boxplots), `problem5.R` (correlation + regression diagnostics).
+5. Full pipeline from the raw file: `01_clean.R` (reads the 1.5 GB file in
+   chunks, takes a few minutes) and then `problem1.R` to `problem5.R`.
+
+All five problem scripts were re-run after the final edit and reproduce the
+committed outputs and figures byte for byte.
+
 ## File map
 
 ```
