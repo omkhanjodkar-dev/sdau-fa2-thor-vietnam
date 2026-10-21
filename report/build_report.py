@@ -31,6 +31,57 @@ for sec in doc.sections:
     sec.left_margin = Cm(2.0)
     sec.right_margin = Cm(2.0)
 
+# page border and footer page numbers (as in the sample report format)
+def _add_page_border(section):
+    sectPr = section._sectPr
+    pgBorders = OxmlElement("w:pgBorders")
+    pgBorders.set(qn("w:offsetFrom"), "page")
+    for edge in ("top", "left", "bottom", "right"):
+        el = OxmlElement(f"w:{edge}")
+        el.set(qn("w:val"), "single")
+        el.set(qn("w:sz"), "4")
+        el.set(qn("w:space"), "24")
+        el.set(qn("w:color"), "auto")
+        pgBorders.append(el)
+    cols = sectPr.find(qn("w:cols"))
+    if cols is not None:
+        cols.addprevious(pgBorders)
+    else:
+        sectPr.append(pgBorders)
+
+
+def _add_page_numbers(section):
+    section.different_first_page_header_footer = True
+    p = section.footer.paragraphs[0]
+    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.space_before = Pt(0)
+    p.paragraph_format.space_after = Pt(0)
+    r = p.add_run()
+    fld = OxmlElement("w:fldChar")
+    fld.set(qn("w:fldCharType"), "begin")
+    r._r.append(fld)
+    r = p.add_run()
+    instr = OxmlElement("w:instrText")
+    instr.set(qn("xml:space"), "preserve")
+    instr.text = " PAGE  \\* MERGEFORMAT "
+    r._r.append(instr)
+    r = p.add_run()
+    fld = OxmlElement("w:fldChar")
+    fld.set(qn("w:fldCharType"), "separate")
+    r._r.append(fld)
+    r = p.add_run("1")
+    r.font.name = "Times New Roman"
+    r.font.size = Pt(11)
+    r = p.add_run()
+    fld = OxmlElement("w:fldChar")
+    fld.set(qn("w:fldCharType"), "end")
+    r._r.append(fld)
+
+
+for sec in doc.sections:
+    _add_page_border(sec)
+    _add_page_numbers(sec)
+
 # base style
 st = doc.styles["Normal"]
 st.font.name = "Times New Roman"
@@ -148,7 +199,13 @@ def fig(name, caption, width=13.5):
 # ============================================================== cover page
 P("PIMPRI CHINCHWAD EDUCATION TRUST'S", size=15, bold=True, align="center", before=40, after=2)
 P("PIMPRI CHINCHWAD COLLEGE OF ENGINEERING", size=17, bold=True, align="center", after=2)
-P("Department of Applied Science and Humanities (AS&H)", size=13, align="center", after=18)
+_logo = doc.add_paragraph()
+_logo.alignment = WD_ALIGN_PARAGRAPH.CENTER
+_logo.paragraph_format.space_before = Pt(4)
+_logo.paragraph_format.space_after = Pt(4)
+_logo.add_run().add_picture(os.path.join(ROOT, "report", "assets", "pccoe_logo.png"),
+                            width=Cm(3.4))
+P("Department of AS&H", size=13, align="center", after=18)
 P("Report of FA-2 activity", size=15, bold=True, align="center", after=18)
 P("Subject: BSH23OE04: Open Elective: Statistical Data Analysis using R",
   size=13, bold=True, align="center", after=4)
@@ -170,7 +227,8 @@ doc.add_page_break()
 
 # ============================================================== 1. title/data
 H("Project Title", after=4)
-P("Statistical Analysis of the Vietnam War Bombing Operations Data using R", bold=True, after=10)
+P("Statistical Analysis of the Vietnam War Bombing Operations Data using R",
+  size=15, bold=True, align="center", after=10)
 
 H("Data used", after=4)
 P("The project uses the THOR Vietnam War bombing operations database (Combat Archives, "
@@ -183,7 +241,10 @@ P("The raw file has 46,70,416 rows and 47 columns and covers missions from 1 Jun
   "source databases (SEADAB, CACTA6669, CACTA6570 or SACCOACT); the SOURCERECORD "
   "column says which one. The columns and the share of missing values in the full file "
   "(measured by scanning the whole file with scripts/00_profile_raw.R) are listed "
-  "below.", after=6)
+  "below. The analysis itself works with 8 numerical variables (YEAR, "
+  "WEAPONS_DELIVERED, LOAD_LB, AIRCRAFT_NO, TGT_HOUR, LAT, LON, FLIGHT_HOURS) and 7 "
+  "categorical ones (COUNTRY, PERIOD, AIRCRAFT_GROUP, SOURCE_DB, WEAPON_CLASS, CLOUD, "
+  "SERVICE).", after=6)
 
 cols = [
     ("1", "THOR_DATA_VIET_ID", "Number", "Unique record identifier in the THOR Vietnam database; checked to be unique (46,70,416 distinct values).", "0%"),
@@ -240,6 +301,17 @@ table(["No.", "Column", "Type", "Description", "Missing"],
 
 P("Table 1: Columns of the raw data file with the share of missing values in the full file.",
   size=10.5, italic=True, align="center", after=10)
+
+H("Flow", after=2)
+bullet("Problem statement - what the question is and why it matters.")
+bullet("Statistical analysis - the method, its hypotheses and its assumptions.")
+bullet("Data visualization - the graph that shows the pattern, with its inference.")
+bullet("Coding - the R script that produces every number and every figure.")
+bullet("Correlation - where two numerical variables allow it.")
+bullet("Hypothesis testing with proper sampling - the test, the p-value and the effect "
+       "size.")
+P("Each of the five problem statements below follows this flow, and each one is backed "
+  "by an R script whose output is quoted in the text.", after=10)
 
 doc.add_page_break()
 
